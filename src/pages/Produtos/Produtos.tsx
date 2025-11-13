@@ -9,6 +9,8 @@ import whatsapp from '../../assets/whatsapp.png';
 import { useEffect, useState } from 'react';
 import type { Bolo } from '../../types/Bolo';
 import { getBolos } from '../../services/bolosService';
+import CardProduto from '../../components/CardProduto/CardProduto';
+
 
 
 export default function Produtos() {
@@ -70,12 +72,13 @@ export default function Produtos() {
 
           {
             bolos.map((b: Bolo) => (
-              <div className="card_produto">
-                <img src={`http://localhost:3000/static/${b.imagens[0]}`} alt="Uma fatia de bolo de chocolate belga" />
-                <h2>{b.nome}</h2>
-                <p>{b.descricao }</p>
-                <span>{b.preco}</span>
-              </div>
+              <CardProduto
+                nome={b.nome}
+                descricao={b.descricao}
+                preco={b.preco}
+                imagem={b.imagens[0]}
+                peso={b.peso}
+              />
             ))
           }
 
