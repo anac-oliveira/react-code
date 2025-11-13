@@ -1,7 +1,5 @@
 import './Produtos.css';
-import banner_1 from '../../assets/imgs/banner.png';
-import banner_2 from '../../assets/imgs/banner2.png';
-import banner_3 from '../../assets/imgs/banner3.png';
+
 import choc_belga from '../../assets/imgs/choc-belga.png';
 import choc_ninho from '../../assets/imgs/choc-ninho.png';
 import cenoura_choc from '../../assets/imgs/cenoura-choc.png';
@@ -10,6 +8,7 @@ import { useEffect, useState } from 'react';
 import type { Bolo } from '../../types/Bolo';
 import { getBolos } from '../../services/bolosService';
 import CardProduto from '../../components/CardProduto/CardProduto';
+import Carrossel from '../../components/Carrossel/Carrossel';
 
 
 
@@ -35,32 +34,7 @@ export default function Produtos() {
 
   return (
     <main>
-
-      <div id="carouselExampleAutoplaying" className="carousel slide" data-bs-ride="carousel">
-        <div className="carousel-inner">
-          <div className="carousel-item active">
-            <img src={banner_1} className="d-block w-100" alt="..." />
-          </div>
-          <div className="carousel-item">
-            <img src={banner_2} className="d-block w-100" alt="..." />
-          </div>
-          <div className="carousel-item">
-            <img src={banner_3} className="d-block w-100" alt="..." />
-          </div>
-        </div>
-        <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
-          data-bs-slide="prev">
-          <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span className="visually-hidden">Previous</span>
-        </button>
-        <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
-          data-bs-slide="next">
-          <span className="carousel-control-next-icon" aria-hidden="true"></span>
-          <span className="visually-hidden">Next</span>
-        </button>
-      </div>
-
-
+      <Carrossel />
       <section className="container_produtos">
         <h1 className="acessivel">produtos de chocolate</h1>
         <div className="titulo">
@@ -76,7 +50,7 @@ export default function Produtos() {
                 nome={b.nome}
                 descricao={b.descricao}
                 preco={b.preco}
-                imagem={b.imagens[0]}
+                imagem={b.imagens[0] ?? ""}
                 peso={b.peso}
               />
             ))
