@@ -5,36 +5,61 @@ import type { Bolo } from '../../types/Bolo';
 import { getBolos } from '../../services/bolosService';
 import CardProduto from '../../components/CardProduto/CardProduto';
 import Carrosel from '../../components/Carrosel/Carrosel';
+import Header from '../../components/Header/Header';
+import { useLocation } from 'react-router-dom';
 
 
 //funções assíncronas
 export default function Produtos() {
 
     const [bolos, setBolos] = useState<Bolo[]>([]);
+    const location = useLocation();
+
+    const parametrosPesquisados = new URLSearchParams(location.search);
+    const termo_pesquisado = parametrosPesquisados.get('query');
+
 
     const fetchBolos = async () => {
         try {
+
             const dados = await getBolos();
-            console.log("Dados retornados da API: ", dados);
-            setBolos(dados);
-        } catch (error) {
-            console.error("Erro ao executar getBolos: ", error)
-        }
+            if (termo_pesquisado) {
+                const dados_filtrados = dados.filter(b =>
+                    b.nome.toLowerCase().includes(termo_pesquisado.toLowerCase()) ||
+                    b.descricao.toLowerCase().includes(termo_pesquisado.toLowerCase()) ||
+                    b.categorias.some(catt => catt.toLowerCase().includes(termo_pesquisado.toLowerCase()))
+                )
+                setBolos(dados_filtrados)
+            } else {
+                console.log("Dados retornados da API: ", dados);
+                setBolos(dados);
+            }
+
+        }catch (error) {
+        console.error("Erro ao executar getBolos: ", error)
     }
+    
+}
 
-    useEffect(() => {
-        fetchBolos();
-    }, [])
+useEffect(() => {
+    fetchBolos();
+    console.log("Termo Pesquisado: ", termo_pesquisado);
+    
+}, [termo_pesquisado])
 
 
-    return (
+return (
+    <>
+        <Header />
         <main>
-            <Carrosel/>
+
+            <Carrosel />
 
             <section className="container_produtos">
                 <h1 className="acessivel">produtos de chocolate</h1>
                 <div className="titulo">
-                    <span>Chocolate</span>
+                    <span>{
+                        termo_pesquisado ? `Resultados Para: ${termo_pesquisado}`: "Nome da categoria"}</span>
                     <hr />
                 </div>
 
@@ -45,9 +70,9 @@ export default function Produtos() {
                             <CardProduto
                                 nome={b.nome}
                                 descricao={b.descricao}
-                                preco= {b.preco}
-                                imagem= {b.imagens[0] ?? ""}
-                                peso= {b.peso}
+                                preco={b.preco}
+                                imagem={b.imagens[0] ?? ""}
+                                peso={b.peso}
                             />
                         ))
                     }
@@ -59,6 +84,10 @@ export default function Produtos() {
                 <img src={whatsapp} />
             </a>
         </main>
+    </>
 
-    )
+)
 }
+
+
+
