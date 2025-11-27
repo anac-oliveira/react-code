@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { categorias } from '../../data/categorias';
 import type { CardCategoriaProps } from '../../types/CardCategoriaProps';
 import CardCategoria from '../../components/CardCategoria/CardCategoria';
+import Footer from '../../components/Footer/Footer';
 
 export default function Home() {
 
@@ -57,10 +58,7 @@ export default function Home() {
           <img src={whatsapp_logo} alt="icone do whatsapp" />
         </Link>
       </main>
-
-      <footer>
-        <p>Bolos do Jacquin® - Todos os direitos reservados</p>
-      </footer>
+      <Footer />
     </>
   )
 }

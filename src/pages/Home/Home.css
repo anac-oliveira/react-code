@@ -31,21 +31,6 @@
 }
 
 
-/* RODAPE */
-footer{
-  width: 100%;
-  height: 60px;
-  background-color: #FFD188;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-footer p{
-  font-family: "Julius Sans One", sans-serif;
-  text-align: center;
-}
-
 .whatsapp{
   position: fixed;
   right: 30px;
